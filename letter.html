@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cartita Mágica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom right, #ffeaf4, #e4f0ff);
+      font-family: 'Quicksand', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .envelope-container {
+      position: relative;
+      width: 200px;
+      height: 130px;
+      cursor: pointer;
+      perspective: 1000px;
+      animation: float 3s ease-in-out infinite;
+      margin-bottom: 20px;
+      z-index: 10;
+    }
+
+    .envelope-container.open {
+      animation-play-state: paused;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #ffd6e0;
+      border: 2px solid #f8a4b9;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      z-index: 2;
+      overflow: visible;
+    }
+
+    .flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fbb8ce;
+      clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 0, 0 0);
+      z-index: 3;
+      transition: transform 0.6s ease;
+      transform-origin: top;
+      border-top-left-radius: 16px;
+      border-top-right-radius: 16px;
+    }
+
+    .letter {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80vw;
+      max-width: 400px;
+      max-height: 70vh;
+      background: #fffdfd;
+      border-radius: 24px;
+      padding: 24px;
+      box-sizing: border-box;
+      transform: translate(-50%, -50%) scale(0.1);
+      opacity: 0;
+      transition: all 0.6s ease;
+      font-size: 1em;
+      color: #444;
+      text-align: justify;
+      line-height: 1.6;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+      z-index: 1;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .letter p {
+      margin: 0 0 1em;
+      white-space: pre-line;
+    }
+
+    .letter .firma {
+      text-align: right;
+      margin-top: 2em;
+      font-weight: 600;
+      color: #d46c88;
+    }
+
+    .open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .open .letter {
+      transform: translate(-50%, -55%) scale(1);
+      opacity: 1;
+      z-index: 4;
+    }
+
+    .letter.opened {
+      animation: pop 0.6s ease;
+    }
+
+    @keyframes pop {
+      0% {
+        transform: translate(-50%, -55%) scale(0.9);
+      }
+      50% {
+        transform: translate(-50%, -55%) scale(1.05);
+      }
+      100% {
+        transform: translate(-50%, -55%) scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="envelope-container" id="envelope" onclick="abrirSobre(this)">
+    <div class="envelope">
+      <div class="flap"></div>
+
+      <div class="letter" id="letter-text">
+        <p>Hola, gracias por abrir esta cartita.</p>
+
+        <p>Quería tomar un momento para enviarte mis mejores deseos y un poco de cariño a través de estas palabras.</p>
+        
+        <p>Espero que este pequeño gesto te alegre el día y te recuerde lo especial que eres.</p>
+        
+        <p>Siempre con cariño,</p>
+        
+        <div class="firma">André </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function abrirSobre(sobre) {
+      sobre.classList.toggle('open');
+    }
+  </script>
+
+</body>
+</html>
+
